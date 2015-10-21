@@ -18,10 +18,9 @@ Steps from http://www.projectatomic.io/docs/gettingstarted/
 
 Issue: after restarting the node, the fixed private IP wasn't working to SSH in. Restarting the network service after using "vagrant ssh node" to reach the box fixed this.
 
-had to put SELinux into permissive mode to get DNS working
-
 DNS working steps
 
+- had to put SELinux into permissive mode to get DNS working
 - kubelet config and restart Service
 - start DNS Service
 - start DNS RC

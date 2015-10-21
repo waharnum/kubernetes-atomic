@@ -7,8 +7,14 @@
 # - name: restart atomic host if upgraded
 #   command: systemctl reboot
 
+- name: check for /var/lib/local-registry/ (shorthand for "has it been created?")
+  stat:
+    path: /var/lib/local-registry/
+  register: local_registry
+
 - name: create local Docker registry
   command: docker create -p 5000:5000 -v /var/lib/local-registry:/srv/registry -e STANDALONE=false -e MIRROR_SOURCE=https://registry-1.docker.io -e MIRROR_SOURCE_INDEX=https://index.docker.io -e STORAGE_PATH=/srv/registry --name=local-registry registry
+  when: local_registry.stat.isdir is not defined or local_registry.stat.isdir != true
 
 - name: copy local registry service file
   copy:
@@ -74,3 +80,6 @@
   command: curl -L http://localhost:2379/v2/keys/atomic01/network/config -XPUT --data-urlencode value@flanneld-conf.json
   args:
     chdir: /home/vagrant/
+
+- name: put SELinux into permissive mode
+  command: setenforce 0

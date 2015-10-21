@@ -54,3 +54,6 @@
       - flanneld
       - kubelet
       - kube-proxy
+
+- name: put SELinux into permissive mode
+  command: setenforce 0

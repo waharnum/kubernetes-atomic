@@ -11,16 +11,16 @@
     dest: /usr/local/kubernetes/svc
     state: directory
 
-- name: copy DNS RC definition into place
-  copy:
+- name: template DNS RC definition into place
+  template:
     dest: /usr/local/kubernetes/rc/dnsrc.yml
-    src: dnsrc.yml
+    src: dnsrc.yml.j2
     backup: yes
 
-- name: copy DNS SVC definition into place
-  copy:
+- name: template DNS SVC definition into place
+  template:
     dest: /usr/local/kubernetes/svc/dnssvc.yml
-    src: dnssvc.yml
+    src: dnssvc.yml.j2
     backup: yes
 
 - name: launch Kube DNS Service

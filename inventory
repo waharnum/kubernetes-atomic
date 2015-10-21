@@ -1,5 +1,5 @@
 [master]
-kube-master ansible_ssh_host=192.168.87.10 ansible_ssh_private_key_file=~/work/atomic/.vagrant/machines/master/virtualbox/private_key
+kube_master ansible_ssh_host=192.168.87.10 ansible_ssh_private_key_file=~/work/atomic/.vagrant/machines/master/virtualbox/private_key
 
 [nodes]
-kube-node-1 ansible_ssh_host=192.168.87.11 ansible_ssh_private_key_file=~/work/atomic/.vagrant/machines/node1/virtualbox/private_key
+kube_node_1 ansible_ssh_host=192.168.87.11 ansible_ssh_private_key_file=~/work/atomic/.vagrant/machines/node1/virtualbox/private_key

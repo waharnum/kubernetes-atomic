@@ -1,0 +1,19 @@
+
+PLAY [all] ******************************************************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [kube_master]
+ok: [kube_node_1]
+
+TASK: [debug] ***************************************************************** 
+fatal: [kube_master] => One or more undefined variables: 'dns_service_ip' is undefined
+fatal: [kube_node_1] => One or more undefined variables: 'dns_service_ip' is undefined
+
+FATAL: all hosts have already failed -- aborting
+
+PLAY RECAP ******************************************************************** 
+           to retry, use: --limit @/Users/aharnum/playbook-varstest.retry
+
+kube_master                : ok=1    changed=0    unreachable=1    failed=0   
+kube_node_1                : ok=1    changed=0    unreachable=1    failed=0   
+

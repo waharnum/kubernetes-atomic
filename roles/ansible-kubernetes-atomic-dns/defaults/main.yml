@@ -1,3 +1,2 @@
 ---
 # defaults file for ansible-kubernetes-atomic-dns
-dns_service_ip: 10.254.0.10

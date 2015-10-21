@@ -7,16 +7,16 @@
 # - name: restart atomic host if upgraded
 #   command: systemctl reboot
 
-- name: copy Docker config file
-  copy:
+- name: template Docker config file into place
+  template:
     dest: /etc/sysconfig/docker
-    src: docker.conf
+    src: docker.j2
     backup: yes
 
-- name: copy flanneld config file
-  copy:
+- name: template flanneld config file into place
+  template:
     dest: /etc/sysconfig/flanneld
-    src: flanneld.conf
+    src: flanneld.j2
     backup: yes
 
 - name: make directory for custom Docker service definition
@@ -30,16 +30,16 @@
     src: 10-flanneld-network.conf
     backup: yes
 
-- name: copy kubelet config into place
-  copy:
+- name: template kubelet config into place
+  template:
     dest: /etc/kubernetes/kubelet
-    src: kubelet.conf
+    src: kubelet.j2
     backup: yes
 
-- name: copy kubernetes node config into place
-  copy:
+- name: template kubernetes node config into place
+  template:
     dest: /etc/kubernetes/config
-    src: kubernetes.conf
+    src: kubernetes_node.j2
     backup: yes
 
 - name: reload systemd

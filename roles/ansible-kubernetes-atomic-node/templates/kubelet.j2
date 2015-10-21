@@ -14,4 +14,4 @@ KUBELET_HOSTNAME="--hostname_override={{ ansible_ssh_host }}"
 KUBELET_API_SERVER="--api_servers=http://{{ kube_master_ip }}:8080"
 
 # Add your own!
-KUBELET_ARGS="--cluster-dns=dns_service_ip: {{ dns_service_ip }} --cluster-domain=cluster.local"
+KUBELET_ARGS="--cluster-dns={{ dns_service_ip }} --cluster-domain=cluster.local"

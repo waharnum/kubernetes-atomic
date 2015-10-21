@@ -1,0 +1,30 @@
+---
+# tasks file for ansible-kubernetes-atomic-dns
+
+- name: create a directory for ReplicationController definitions
+  file:
+    dest: /usr/local/kubernetes/rc
+    state: directory
+
+- name: create a directory for Service definitions
+  file:
+    dest: /usr/local/kubernetes/svc
+    state: directory
+
+- name: copy DNS RC definition into place
+  copy:
+    dest: /usr/local/kubernetes/rc/dnsrc.yml
+    src: dnsrc.yml
+    backup: yes
+
+- name: copy DNS SVC definition into place
+  copy:
+    dest: /usr/local/kubernetes/svc/dnssvc.yml
+    src: dnssvc.yml
+    backup: yes
+
+- name: launch Kube DNS Service
+  command: kubectl create -f /usr/local/kubernetes/svc/dnssvc.yml
+
+- name: launch Kube DNS ReplicationController
+  command: kubectl create -f /usr/local/kubernetes/rc/dnsrc.yml

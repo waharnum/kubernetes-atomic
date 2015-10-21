@@ -1,0 +1,76 @@
+---
+# tasks file for ansible-kubernetes-atomic-master
+
+# - name: upgrade the atomic host
+#   command: atomic host upgrade
+
+# - name: restart atomic host if upgraded
+#   command: systemctl reboot
+
+- name: create local Docker registry
+  command: docker create -p 5000:5000 -v /var/lib/local-registry:/srv/registry -e STANDALONE=false -e MIRROR_SOURCE=https://registry-1.docker.io -e MIRROR_SOURCE_INDEX=https://index.docker.io -e STORAGE_PATH=/srv/registry --name=local-registry registry
+
+- name: copy local registry service file
+  copy:
+    dest: /etc/systemd/system/local-registry.service
+    src: local-registry.service
+    backup: yes
+
+- name: make sure registry service is started
+  service:
+    name: local-registry
+    enabled: yes
+    state: started
+
+- name: hack - pause 20 seconds to wait for registry container to start before next command
+  pause:
+    seconds: 20
+
+- name: modify SELinux context on the docker registry directory
+  command: chcon -Rvt svirt_sandbox_file_t /var/lib/local-registry
+
+- name: update etcd config
+  copy:
+    dest: /etc/etcd/etcd.conf
+    src: etcd.conf
+    backup: yes
+
+- name: update kubernetes config
+  copy:
+    dest: /etc/kubernetes/config
+    src: kubernetes.conf
+    backup: yes
+
+- name: update API server config
+  copy:
+    dest: /etc/kubernetes/apiserver
+    src: apiserver.conf
+    backup: yes
+
+- name: update controller manager config
+  copy:
+    dest: /etc/kubernetes/controller-manager
+    src: controller-manager.conf
+    backup: yes
+
+- name: ensure all kubernetes master services are enabled and started
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - etcd
+    - kube-apiserver
+    - kube-controller-manager
+    - kube-scheduler
+
+- name: copy flannel config into place
+  copy:
+    dest: /home/vagrant/flanneld-conf.json
+    src: flanneld-conf.json
+    backup: yes
+
+- name: curl the flannel configuration into place on etcd
+  command: curl -L http://localhost:2379/v2/keys/atomic01/network/config -XPUT --data-urlencode value@flanneld-conf.json
+  args:
+    chdir: /home/vagrant/

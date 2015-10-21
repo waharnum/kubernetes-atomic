@@ -1,0 +1,56 @@
+---
+# tasks file for ansible-kubernetes-atomic-node
+
+# - name: upgrade the atomic host
+#   command: atomic host upgrade
+
+# - name: restart atomic host if upgraded
+#   command: systemctl reboot
+
+- name: copy Docker config file
+  copy:
+    dest: /etc/sysconfig/docker
+    src: docker.conf
+    backup: yes
+
+- name: copy flanneld config file
+  copy:
+    dest: /etc/sysconfig/flanneld
+    src: flanneld.conf
+    backup: yes
+
+- name: make directory for custom Docker service definition
+  file:
+    dest: /etc/systemd/system/docker.service.d/
+    state: directory
+
+- name: copy custom Docker service definition into place
+  copy:
+    dest: /etc/systemd/system/docker.service.d/10-flanneld-network.conf
+    src: 10-flanneld-network.conf
+    backup: yes
+
+- name: copy kubelet config into place
+  copy:
+    dest: /etc/kubernetes/kubelet
+    src: kubelet.conf
+    backup: yes
+
+- name: copy kubernetes node config into place
+  copy:
+    dest: /etc/kubernetes/config
+    src: kubernetes.conf
+    backup: yes
+
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: ensure kubernetes node services enabled and running
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+      - flanneld
+      - kubelet
+      - kube-proxy

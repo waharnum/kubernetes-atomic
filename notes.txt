@@ -1,0 +1,27 @@
+master IP: 192.168.87.10
+node IP: 192.168.87.11
+
+---
+
+convenience remove of known hosts:
+ssh-keygen -R 192.168.87.10 && ssh-keygen -R 192.168.87.11
+
+---
+
+Steps from http://www.projectatomic.io/docs/gettingstarted/
+
+`sudo chcon -Rvt svirt_sandbox_file_t /var/lib/local-registry` -> this fails unless you do it after creating and starting the service
+
+`KUBE_ETCD_SERVERS="--etcd_servers=http://192.168.87.10:2379"` -> moved this line to /etc/kubernets/apiserver
+
+---
+
+Issue: after restarting the node, the fixed private IP wasn't working to SSH in. Restarting the network service after using "vagrant ssh node" to reach the box fixed this.
+
+had to put SELinux into permissive mode to get DNS working
+
+DNS working steps
+
+- kubelet config and restart Service
+- start DNS Service
+- start DNS RC

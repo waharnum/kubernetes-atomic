@@ -59,11 +59,11 @@
     src: controller-manager.j2
     backup: yes
 
-- name: ensure all kubernetes master services are enabled and started
+- name: ensure all kubernetes master services are enabled and restarted
   service:
     name: "{{ item }}"
     enabled: yes
-    state: started
+    state: restarted
   with_items:
     - etcd
     - kube-apiserver

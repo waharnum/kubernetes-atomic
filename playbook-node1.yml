@@ -1,0 +1,7 @@
+---
+- hosts: kube_node_1
+  remote_user: vagrant
+  become: yes
+
+  roles:
+      - ansible-kubernetes-atomic-node

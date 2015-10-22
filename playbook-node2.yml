@@ -1,5 +1,5 @@
 ---
-- hosts: nodes
+- hosts: kube_node_2
   remote_user: vagrant
   become: yes
 

@@ -1,5 +1,5 @@
 ---
 dns_service_ip: 10.254.0.10
 kube_master_ip: "{{ hostvars.kube_master.ansible_ssh_host }}"
-service_cluster_ip_range: 10.254.0.0/16
+service_cluster_ip_range: 10.254.53.0/16
 flannel_ip_range: 172.16.0.0/12

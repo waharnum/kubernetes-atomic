@@ -17,7 +17,7 @@ KUBE_API_ADDRESS="--address=0.0.0.0"
 KUBE_ETCD_SERVERS="--etcd_servers=http://{{ kube_master_ip }}:2379"
 
 # Address range to use for services
-KUBE_SERVICE_ADDRESSES="--portal_net={{ service_cluster_ip_range }}"
+KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range={{ service_cluster_ip_range }}"
 
 # default admission control policies
 KUBE_ADMISSION_CONTROL="--admission_control=NamespaceLifecycle,NamespaceExists,LimitRange

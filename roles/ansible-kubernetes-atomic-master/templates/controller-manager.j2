@@ -5,4 +5,4 @@
 
 # Add your own!
 KUBE_CONTROLLER_MANAGER_ARGS=""
-KUBELET_ADDRESSES="--machines=192.168.87.11"
+KUBELET_ADDRESSES="--machines={% for host in groups['nodes'] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"

@@ -5,4 +5,4 @@
 
   tasks:
     - name: debug
-      debug: msg="DNS {{ dns_service_ip }}"
+      debug: msg="kubelet_addresses {{ kubelet_addresses }}"

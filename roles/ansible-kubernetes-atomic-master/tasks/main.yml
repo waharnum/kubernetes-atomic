@@ -41,10 +41,10 @@
     src: etcd.conf
     backup: yes
 
-- name: update kubernetes config
-  copy:
+- name: template kubernetes master config into place
+  template:
     dest: /etc/kubernetes/config
-    src: kubernetes.conf
+    src: kubernetes_master.j2
     backup: yes
 
 - name: template API server config into place
@@ -53,10 +53,10 @@
     src: apiserver.j2
     backup: yes
 
-- name: update controller manager config
-  copy:
+- name: template controller manager config into place
+  template:
     dest: /etc/kubernetes/controller-manager
-    src: controller-manager.conf
+    src: controller-manager.j2
     backup: yes
 
 - name: ensure all kubernetes master services are enabled and started

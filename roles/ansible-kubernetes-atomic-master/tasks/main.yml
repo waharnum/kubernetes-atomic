@@ -70,10 +70,10 @@
     - kube-controller-manager
     - kube-scheduler
 
-- name: copy flannel config into place
-  copy:
+- name: template flannel config into place
+  template:
     dest: /home/vagrant/flanneld-conf.json
-    src: flanneld-conf.json
+    src: flanneld-conf.json.j2
     backup: yes
 
 - name: curl the flannel configuration into place on etcd

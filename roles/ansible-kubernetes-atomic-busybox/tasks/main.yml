@@ -1,0 +1,13 @@
+---
+# tasks file for ansible-kubernetes-atomic-busybox
+
+- name: create a directory for Pod definitions
+  file:
+    dest: /usr/local/kubernetes/pods
+    state: directory
+- name: copy busybox config into place
+  copy:
+    dest: /usr/local/kubernetes/pods/busybox.yml
+    src: busybox.yml
+- name: launch busybox pod
+  command: kubectl create -f /usr/local/kubernetes/pods/busybox.yml

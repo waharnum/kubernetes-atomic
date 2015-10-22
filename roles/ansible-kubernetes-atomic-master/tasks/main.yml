@@ -47,10 +47,10 @@
     src: kubernetes.conf
     backup: yes
 
-- name: update API server config
-  copy:
+- name: template API server config into place
+  template:
     dest: /etc/kubernetes/apiserver
-    src: apiserver.conf
+    src: apiserver.j2
     backup: yes
 
 - name: update controller manager config

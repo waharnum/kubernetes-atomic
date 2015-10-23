@@ -6,10 +6,8 @@ echo "Temporarily disabling Ansible host key checking for this terminal via env 
 export ANSIBLE_HOST_KEY_CHECKING=False
 echo "configuring master"
 ansible-playbook playbook-master.yml -i inventory
-echo "configuring node 1"
-ansible-playbook playbook-node1.yml -i inventory
-echo "configuring node 2"
-ansible-playbook playbook-node2.yml -i inventory
+echo "configuring nodes"
+ansible-playbook playbook-nodes.yml -i inventory
 echo "configuring DNS service"
 ansible-playbook playbook-dns.yml -i inventory
 echo "launching a busybox pod for testing purposes"

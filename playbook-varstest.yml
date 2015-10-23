@@ -1,8 +1,12 @@
 ---
-- hosts: all
+- hosts: kube_node_1
   remote_user: vagrant
   become: yes
 
   tasks:
-    - name: debug
-      debug: msg="kubelet_addresses {{ kubelet_addresses }}"
+    - name: set device name used for Vagrant private network as a fact
+      shell: ip addr | grep 192.168.87 | sed -n -e 's/^.*global //p'
+      register: vagrant_private_network_device_name
+    - name: show device name
+      debug:
+        msg: "{{ vagrant_private_network_device_name.stdout }}"

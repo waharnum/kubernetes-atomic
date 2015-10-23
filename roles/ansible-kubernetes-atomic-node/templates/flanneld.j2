@@ -8,4 +8,4 @@ FLANNEL_ETCD="http://{{ kube_master_ip }}:2379"
 FLANNEL_ETCD_KEY="/atomic01/network"
 
 # Any additional options that you want to pass
-FLANNEL_OPTIONS="--iface=enp0s8"
+FLANNEL_OPTIONS="--iface={{ vagrant_private_network_device_name.stdout }}"

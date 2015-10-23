@@ -13,6 +13,10 @@
     src: docker.j2
     backup: yes
 
+- name: set device name used for Vagrant private network as a fact, for use when configuring flannel
+  shell: ip addr | grep 192.168.87 | sed -n -e 's/^.*global //p'
+  register: vagrant_private_network_device_name
+
 - name: template flanneld config file into place
   template:
     dest: /etc/sysconfig/flanneld

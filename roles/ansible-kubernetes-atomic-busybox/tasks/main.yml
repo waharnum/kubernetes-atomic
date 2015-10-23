@@ -5,9 +5,13 @@
   file:
     dest: /usr/local/kubernetes/pods
     state: directory
-- name: copy busybox config into place
-  copy:
-    dest: /usr/local/kubernetes/pods/busybox.yml
-    src: busybox.yml
-- name: launch busybox pod
-  command: kubectl create -f /usr/local/kubernetes/pods/busybox.yml
+- name: copy busybox configs into place
+  template:
+    dest: /usr/local/kubernetes/pods/{{ item }}.yml
+    src: busybox.j2
+  with_items:
+    - "{{ busybox_pod_names }}"
+- name: launch busybox pods
+  command: kubectl create -f /usr/local/kubernetes/pods/{{ item }}.yml
+  with_items:
+    - "{{ busybox_pod_names }}"

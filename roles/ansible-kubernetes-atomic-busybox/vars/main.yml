@@ -1,2 +1,7 @@
 ---
 # vars file for ansible-kubernetes-atomic-busybox
+busybox_pod_names:
+  - busybox1
+  - busybox2
+  - busybox3
+  - busybox4

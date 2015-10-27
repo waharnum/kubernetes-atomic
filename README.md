@@ -1,6 +1,6 @@
 # What's This?
 
-A Ansible-based handroll of setting up Kubernetes on CentOS Atomic as described at http://www.projectatomic.io/docs/gettingstarted/
+An Ansible-based handroll of setting up Kubernetes on CentOS Atomic as described at http://www.projectatomic.io/docs/gettingstarted/
 
 Currently sets up a single master and four nodes, with communication done over a private network
 

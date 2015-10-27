@@ -38,6 +38,16 @@ Vagrant.configure(2) do |config|
       node.vm.network "private_network", ip: "192.168.87.13"
   end
 
+  config.vm.define "node4" do |node|
+      node.vm.box = "centos/atomic-host"
+      node.vm.network "private_network", ip: "192.168.87.14"
+  end
+
+  config.vm.define "nfs" do |nfs|
+      nfs.vm.box = "inclusivedesign/centos7"
+      nfs.vm.network "private_network", ip: "192.168.87.111"
+  end
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.

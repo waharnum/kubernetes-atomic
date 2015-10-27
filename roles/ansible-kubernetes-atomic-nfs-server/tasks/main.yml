@@ -1,0 +1,25 @@
+---
+# tasks file for ansible-kubernetes-atomic-nfs
+
+- name: install nfs-utils
+  yum:
+    name: nfs-utils
+    state: latest
+
+- name: create the shared storage directory
+  file:
+    dest: "{{ kube_nfs_storage_directory }}"
+    state: directory
+
+- name: template export configuration for storage directory into place
+  template:
+    dest: /etc/exports
+    src: exports.j2
+
+- name: start nfs and rpcbind services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - nfs
+    - rpcbind

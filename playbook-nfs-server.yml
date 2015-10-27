@@ -1,0 +1,7 @@
+---
+- hosts: nfs
+  remote_user: vagrant
+  become: yes
+
+  roles:
+    - ansible-kubernetes-atomic-nfs-server

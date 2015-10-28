@@ -30,3 +30,5 @@
 - name: launch the persistent volume claims
   command: "kubectl create -f /usr/local/kubernetes/pvc/{{ item }}.yml"
   with_items: "{{ pvc_prefixes }}"
+
+# TODO: need to make sure directories in the NFS share are created

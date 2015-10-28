@@ -9,5 +9,5 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   nfs:
-    path: {{ kube_nfs_storage_directory }}/pv{{ item }}
+    path: {{ kube_nfs_storage_directory }}/{{ item }}
     server: {{ kube_nfs_ip }}

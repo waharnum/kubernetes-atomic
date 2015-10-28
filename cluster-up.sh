@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Clearing the vagrant box IPs from known hosts"
-ssh-keygen -R 192.168.87.10 && ssh-keygen -R 192.168.87.11 && ssh-keygen -R 192.168.87.12 && ssh-keygen -R 192.168.87.13 && ssh-keygen -R 192.168.87.14
+ssh-keygen -R 192.168.87.10 && ssh-keygen -R 192.168.87.11 && ssh-keygen -R 192.168.87.12 && ssh-keygen -R 192.168.87.13 && ssh-keygen -R 192.168.87.14 && ssh-keygen -R 192.168.87.111
 vagrant up
 echo "Temporarily disabling Ansible host key checking for this terminal via env variable"
 export ANSIBLE_HOST_KEY_CHECKING=False

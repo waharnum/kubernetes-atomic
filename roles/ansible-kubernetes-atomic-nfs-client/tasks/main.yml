@@ -3,10 +3,10 @@
 
 # Atomic Host already has nfs utils (and no package manager...)
 
-- name: install nfs-utils
-  yum:
-    name: nfs-utils
-    state: latest
+# - name: install nfs-utils
+#   yum:
+#     name: nfs-utils
+#     state: latest
 
 - name: create a directory for the nfs mount
   file:

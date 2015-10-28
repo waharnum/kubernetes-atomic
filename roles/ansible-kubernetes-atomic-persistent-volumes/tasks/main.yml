@@ -9,17 +9,24 @@
 - name: create configurations for four persistent 2gi volumes
   template:
     src: persistent-volume.j2
-    dest: /usr/local/kubernetes/pv/pv{{ item }}.yml
-  with_items:
-    - "001"
-    - "002"
-    - "003"
-    - "004"
+    dest: /usr/local/kubernetes/pv/{{ item }}.yml
+  with_items: "{{ pv_prefixes }}"
 
 - name: launch the persistent volumes
-  command: "kubectl create -f /usr/local/kubernetes/pv/pv{{ item }}.yml"
-  with_items:
-    - "001"
-    - "002"
-    - "003"
-    - "004"
+  command: "kubectl create -f /usr/local/kubernetes/pv/{{ item }}.yml"
+  with_items: "{{ pv_prefixes }}"
+
+- name: create directory to store persistent volume claim definitions
+  file:
+    dest: /usr/local/kubernetes/pvc
+    state: directory
+
+- name: create configurations for four persistent 2gi volume claims
+  template:
+    src: persistent-volume-claim.j2
+    dest: /usr/local/kubernetes/pvc/{{ item }}.yml
+  with_items: "{{ pvc_prefixes }}"
+
+- name: launch the persistent volume claims
+  command: "kubectl create -f /usr/local/kubernetes/pvc/{{ item }}.yml"
+  with_items: "{{ pvc_prefixes }}"

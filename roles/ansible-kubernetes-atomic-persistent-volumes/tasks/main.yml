@@ -1,0 +1,25 @@
+---
+# tasks file for ansible-kubernetes-atomic-persistent-volumes
+
+- name: create directory to store persistent volume definitions
+  file:
+    dest: /usr/local/kubernetes/pv
+    state: directory
+
+- name: create configurations for four persistent 2gi volumes
+  template:
+    src: persistent-volume.j2
+    dest: /usr/local/kubernetes/pv/pv{{ item }}.yml
+  with_items:
+    - "001"
+    - "002"
+    - "003"
+    - "004"
+
+- name: launch the persistent volumes
+  command: "kubectl create -f /usr/local/kubernetes/pv/pv{{ item }}.yml"
+  with_items:
+    - "001"
+    - "002"
+    - "003"
+    - "004"

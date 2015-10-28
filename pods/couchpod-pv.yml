@@ -1,3 +1,4 @@
+# This pod assumes the persistent volumes are available
 apiVersion: v1
 kind: Pod
 metadata:

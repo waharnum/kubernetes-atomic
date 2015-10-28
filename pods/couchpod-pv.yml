@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: couchdb
+    labels:
+      app: couchdb
+spec:
+    restartPolicy: Never
+    containers:
+    - name: pref-server-couchdb
+      image: klaemo/couchdb
+      volumeMounts:
+      - mountPath: "/usr/local/var/lib/couchdb"
+        name: couchpd
+      ports:
+          - containerPort: 5984
+    volumes:
+      - name: couchpd
+        persistentVolumeClaim:
+          claimName: pvclaim001

@@ -1,0 +1,24 @@
+# The GPII preferences server; expects the couchdb pod launched by
+# couchpod-pv.yml to be available, along with the matching service defined
+# by couchsvc.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+    name: gpii-preferences-server
+    labels:
+      app: gpii-preferences-server
+spec:
+    restartPolicy: Always
+    containers:
+    - name: pref-server
+      image: aharnum/preferences-server
+      env:
+          - name: NODE_ENV
+            value: "preferencesServer.production"
+          - name: COUCHDB_HOST_ADDRESS
+            value: "couchdbsvc:5984"
+          - name: PRIME_DB
+            value: "true"
+      ports:
+          - containerPort: 8082

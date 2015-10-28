@@ -1,0 +1,14 @@
+# Service for the prefserver pod
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: prefserver-svc
+  labels:
+    app: gpii-preferences-server
+spec:
+  ports:
+  - port: 8082
+    protocol: TCP
+  selector:
+    app: gpii-preferences-server

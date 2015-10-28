@@ -1,0 +1,27 @@
+# Loads some sample pod and service definitions to the master for launching by kubectl
+# See files in samples directory for details
+
+---
+- hosts: master
+  remote_user: vagrant
+  become: yes
+
+  vars:
+    - pod_directory: /usr/local/kubernetes/pods
+    - svc_directory: /usr/local/kubernetes/svc
+
+  tasks:
+    - name: copy sample pod definitions
+      copy:
+        dest: "{{ pod_directory }}"
+        src: "{{ item }}"
+      with_items:
+        - samples/couchpod-pv.yml
+        - samples/prefserverpod.yml
+    - name: copy sample service definitions
+      copy:
+        dest: "{{ svc_directory }}"
+        src: "{{ item }}"
+      with_items:
+        - samples/couchsvc.yml
+        - samples/prefserversvc.yml

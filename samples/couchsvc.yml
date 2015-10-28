@@ -1,0 +1,14 @@
+# Service for the couchdb pod
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: couchdbsvc
+  labels:
+    app: couchdb
+spec:
+  ports:
+  - port: 5984
+    protocol: TCP
+  selector:
+    app: couchdb

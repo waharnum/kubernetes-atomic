@@ -16,5 +16,7 @@ echo "configuring nfs server"
 ansible-playbook playbook-nfs-server.yml -i inventory
 echo "configuring nodes to use nfs server"
 ansible-playbook playbook-nfs-node-clients.yml -i inventory
+echo "loading samples"
+ansible-playbook playbook-samples.yml -i inventory
 echo "Reenabling Ansible host key checking"
 export ANSIBLE_HOST_KEY_CHECKING=True

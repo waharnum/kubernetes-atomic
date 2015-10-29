@@ -1,3 +1,4 @@
+# Launches a couchdb pod using the closest thing to an official Docker image
 # This pod assumes the persistent volumes are available
 apiVersion: v1
 kind: Pod

@@ -1,5 +1,6 @@
 # Loads some sample pod and service definitions to the master for launching by kubectl
 # See files in samples directory for details
+# Assumes the cluster is up and configured as per the defaults, as do the samples
 
 ---
 - hosts: master

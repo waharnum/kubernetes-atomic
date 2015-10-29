@@ -1,6 +1,8 @@
 # The GPII preferences server; expects the couchdb pod launched by
 # couchpod-pv.yml to be available, along with the matching service defined
 # by couchsvc.yml
+# Will restart until it finds the running couchdb instance & will quickly
+# consume your resources unless this is ready :)
 
 apiVersion: v1
 kind: Pod
